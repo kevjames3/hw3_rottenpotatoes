@@ -35,3 +35,11 @@ When /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
         end
     end
 end
+
+Then /I should see all of the movies/ do 
+    Movie.find(:all) do |movie|
+        page.should have_content("#{movie.title}") 
+    end
+    
+    page.all("#movies tbody tr").length.should == Movie.count
+end
